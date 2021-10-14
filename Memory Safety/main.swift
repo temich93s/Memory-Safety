@@ -82,3 +82,21 @@ print(oscar.health, maria.health)
 
 //oscar.shareHealth(with: &oscar)
 // Ошибка: conflicting accesses to oscar
+
+
+//MARK: Конфликт доступа к свойствам
+print("\n//Конфликт доступа к свойствам")
+
+var playerInformation = (health: 10, energy: 20)
+//balance(&playerInformation.health, &playerInformation.energy)
+// Ошибка: conflicting access to properties of playerInformation
+
+var holly = Player(name: "Holly", health: 10, energy: 10)
+//balance(&holly.health, &holly.energy)  // Ошибка
+
+func someFunction() {
+    var oscar = Player(name: "Oscar", health: 12, energy: 10)
+    balance(&oscar.health, &oscar.energy)  // OK
+    print(oscar.health, oscar.energy)
+}
+someFunction()
